@@ -27,13 +27,21 @@ app.get("/", (req, res) => {
 
 
 /** 3) Serve an HTML file */
+/*
+
 app.get("/", (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
 });
 
+*/
+
 
 /** 4) Serve static assets  */
+/*
+
 app.use(express.static(__dirname + '/public'));
+
+*/
 
 
 /** 5) serve JSON on a specific route */
@@ -48,6 +56,8 @@ app.get("/json", (req, res) => {
 */
 
 /** 6) Use the .env file to configure the app */
+/*
+
 app.get('/json', (req, res) => {
   let data = {"message": "Hello json"};
   if(process.env.MESSAGE_STYLE === 'uppercase'){
@@ -55,10 +65,17 @@ app.get('/json', (req, res) => {
   }
   res.json(data);
 });
+
+*/
  
  
 /** 7) Root-level Middleware - A logger */
 //  place it before all the routes !
+app.use("/", (req, res, next) => {
+  let string = req.method + " " + req.path + " - " + req.ip;
+  console.log(string);
+  next();
+});
 
 
 /** 8) Chaining middleware. A Time server */
