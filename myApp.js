@@ -98,6 +98,8 @@ app.get('/now', (req, res, next) => {
 
 
 /** 9)  Get input from client - Route parameters */
+/*
+
 app.get('/:word/echo', (req, res) => {
   const { word } = req.params;
   res.json({
@@ -105,9 +107,22 @@ app.get('/:word/echo', (req, res) => {
   });
 });
 
+*/
+
 
 /** 10) Get input from client - Query parameters */
 // /name?first=<firstname>&last=<lastname>
+app.get('/name', (req, res) => {
+  /* 
+  var firstName = req.query.first;
+  var lastName = req.query.last; */
+  
+  var { first: firstName, last: lastName} = req.query;
+  
+  res.json({
+    name: `${firstName} ${lastName}`
+  });
+});
 
   
 /** 11) Get ready for POST Requests - the `body-parser` */
