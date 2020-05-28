@@ -1,58 +1,52 @@
-
+var bodyParser = require("body-parser");
 var express = require('express');
 var app = express();
 
 // --> 7)  Mount the Logger middleware here
+app.use('/', (req, res, next) => {
+  let string = req.method + ' ' + req.path + ' - ' + req.ip;
+  console.log(string);
+  next();
+});
 
 
 // --> 11)  Mount the body-parser middleware  here
+app.use(bodyParser.urlencoded({ extended: false }));
 
 
 /** 1) Meet the node console. */
 /*
 
-console.log("Hello World");
+console.log('Hello World');
 
 */
-
 
 /** 2) A first working Express Server */
 /*
-
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
   res.send('Hello Express');
 });
-
 */
 
-
 /** 3) Serve an HTML file */
-/*
-
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-*/
-
 
 /** 4) Serve static assets  */
-/*
 
 app.use(express.static(__dirname + '/public'));
 
-*/
 
 
 /** 5) serve JSON on a specific route */
 /*
-
-app.get("/json", (req, res) => {
+app.get('/json', (req, res) => {
   res.json({
-    message: "Hello json"
+    message: 'Hello json'
   });
 });
-
 */
 
 /** 6) Use the .env file to configure the app */
@@ -73,8 +67,8 @@ app.get('/json', (req, res) => {
 //  place it before all the routes !
 /*
 
-app.use("/", (req, res, next) => {
-  let string = req.method + " " + req.path + " - " + req.ip;
+app.use('/', (req, res, next) => {
+  let string = req.method + ' ' + req.path + ' - ' + req.ip;
   console.log(string);
   next();
 });
@@ -127,10 +121,20 @@ app.get('/name', (req, res) => {
   
 /** 11) Get ready for POST Requests - the `body-parser` */
 // place it before all the routes !
+/*
+
 app.use(bodyParser.urlencoded({ extended: false }));
+
+*/
 
 
 /** 12) Get data form POST  */
+app.post('/name', (req, res) => {
+  const string = `${req.body.first} ${req.body.last}`;
+  res.json({
+    name: string
+  });
+});
 
 
 
